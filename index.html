@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Billing System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+
+</head>
+
+<body class=" bg-[url('hotel.jpg')] bg-cover bg-center bg-no-repeat	 bg-opacity-30 bg-blend-overlay text-gray-800" >
+    <div class="max-w-lg max-h-lvh mx-auto p-6 bg-white shadow-lg rounded-lg mt-12">
+        <h1 class="text-2xl font-bold mb-6 text-center text-gray-700  animate__animated animate__zoomIn animate__infinite "  >Restaurant Billing System</h1>
+
+        <div class="space-y-4" >
+            <div class="flex justify-between items-center">
+                <label for="paneer" class="text-lg">Paneer Butter Masala</label>
+                <div class="text-gray-600">₹ 250</div>
+                <input type="number" id="paneer" value="0" class="w-16 p-2 border border-gray-300 rounded">
+            </div>
+
+            <div class="flex justify-between items-center">
+                <label for="biryani" class="text-lg">Chicken Biryani</label>
+                <div class="text-gray-600">₹ 300</div>
+                <input type="number" id="biryani" value="0" class="w-16 p-2 border border-gray-300 rounded">
+            </div>
+
+            <div class="flex justify-between items-center">
+                <label for="dosa" class="text-lg">Masala Dosa</label>
+                <div class="text-gray-600">₹ 250</div>
+                <input type="number" id="dosa" value="0" class="w-16 p-2 border border-gray-300 rounded">
+            </div>
+        </div>
+
+        <button onclick="calculateBill()"
+            class=" mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200">Calculate
+            Bill</button>
+
+        <div class="mt-4 space-y-2">
+            <div class="text-lg font-semibold">Total Amount: ₹ <span id="totalAmount" class="font-normal">0</span></div>
+            <div class="text-lg font-semibold">Tax (5%): ₹ <span id="tax" class="font-normal">0</span></div>
+            <div class="text-lg font-semibold">Service Charge (10%): ₹ <span id="charge" class="font-normal">0</span>
+            </div>
+            <div class="text-xl font-semibold">SUB TOTAL: ₹ <span id="stotal" class="font-bold text-red-500">0</span>
+            </div>
+        </div>
+
+        <button onclick="dreport()"
+            class=" mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-200">Daily
+            Report</button>
+
+        <div class="mt-4space-y-2">
+            <div class="text-lg font-semibold">Total Orders: ₹ <span id="torder" class="font-normal">0</span></div>
+            <div class="text-lg font-semibold">Total Sales: ₹ <span id="tsale" class="font-normal">0</span></div>
+        </div>
+    </div>
+
+    <script>
+        let totalorder = 0;
+        let totalsale = 0;
+
+        function calculateBill() {
+            const paneer = document.getElementById('paneer').value;
+            const biryani = document.getElementById('biryani').value;
+            const dosa = document.getElementById('dosa').value;
+
+            if (paneer === "0" && biryani === "0" && dosa === "0") {
+                alert("Please Add Food Items");
+                return;
+            }
+
+            const pprice = 250;
+            const bprice = 300;
+            const dprice = 250;
+
+            const total = (paneer * pprice) + (biryani * bprice) + (dosa * dprice);
+            const tax = (total * 0.05);
+            const charge = (total * 0.1);
+            const subtotal = total + tax + charge;
+
+            document.getElementById('totalAmount').innerText = total.toFixed(2);
+            document.getElementById('tax').innerText = tax.toFixed(2);
+            document.getElementById('charge').innerText = charge.toFixed(2);
+            document.getElementById('stotal').innerText = subtotal.toFixed(2);
+
+            totalorder++;
+            totalsale += subtotal;
+        }
+
+        function dreport() {
+            if (totalorder === 0) {
+                alert("No Orders Placed Yet!");
+                return;
+            }
+            document.getElementById("torder").innerText = totalorder;
+            document.getElementById("tsale").innerText = totalsale.toFixed(2);
+        }
+    </script>
+</body>
+
+</html>
